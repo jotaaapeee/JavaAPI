@@ -73,7 +73,7 @@ public class ClienteController {
 			@ApiResponse(code = 404, message = "Recurso não disponível"),
 			@ApiResponse(code = 500, message = "Erro interno no servidor"),
 			@ApiResponse(code = 505, message = "Ocorreu uma exceção") })
-	@PutMapping("{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @Valid @RequestBody Cliente cliente) {
 		if (clienteService.atualizar(id, cliente) != null) {
 			return ResponseEntity.ok(clienteService.atualizar(id, cliente));
@@ -88,7 +88,7 @@ public class ClienteController {
 			@ApiResponse(code = 500, message = "Erro interno no servidor"),
 			@ApiResponse(code = 505, message = "Ocorreu uma exceção") })
 
-	@DeleteMapping("{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> apagar(@PathVariable Long id) {
 		if (clienteService.apagar(id)) {
 			clienteService.apagar(id);

@@ -18,6 +18,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -71,7 +72,7 @@ public class Cliente {
 	private LocalDate dataNasc;
 
 	@ApiModelProperty(value = "Colocar o endereço do úsuario")
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 
@@ -142,7 +143,7 @@ public class Cliente {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha=senha;
 	}
 
 	public String getCpf() {
