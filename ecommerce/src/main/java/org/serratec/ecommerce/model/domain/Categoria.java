@@ -13,25 +13,25 @@ import io.swagger.annotations.ApiModelProperty;
 @Entity
 public class Categoria {
 
-	@ApiModelProperty(value = " indentificador único de categoria")
+	@ApiModelProperty(value = " identificador único de categoria")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoria")
     private Long id;
 
-	@ApiModelProperty(value = " nome da categoria com maximo de 30 caracteres")
+	@ApiModelProperty(value = " nome da categoria com máximo de 30 caracteres")
     @NotBlank
-    @Size(max = 30, message = "Nome de no maximo 30 caracteres")
+    @Size(max = 30, message = "Nome de no máximo 30 caracteres")
     private String nome;
 
-	@ApiModelProperty(value = " indentificador da descrição do produto")
-    @Size(max = 150, message = "Descricao pode conter até 150 caracteres")
+	@ApiModelProperty(value = " identificador da descrição do produto")
+    @Size(max = 150, message = "Descrição pode conter até 150 caracteres")
     private String descricao;
     
     public Categoria() {
 	}
 
-	public Categoria(Long id, @NotBlank @Size(max = 30, message = "Nome de no maximo 30 caracteres") String nome,
+	public Categoria(Long id, @NotBlank @Size(max = 30, message = "Nome de no máximo 30 caracteres") String nome,
 			@Size(max = 150, message = "Pode conter até 150 caracteres") String descricao) {
 		super();
 		this.id = id;

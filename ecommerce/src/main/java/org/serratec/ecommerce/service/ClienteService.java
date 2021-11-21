@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import org.serratec.ecommerce.model.domain.Cliente;
@@ -29,6 +30,8 @@ public class ClienteService {
 	}
 	
 	public Cliente inserir(Cliente cliente) {
+		BCryptPasswordEncoder encriptador = new BCryptPasswordEncoder();
+		cliente.setSenha(encriptador.encode(cliente.getSenha()));
 		return clienteRepository.save(cliente);
 	}
 	

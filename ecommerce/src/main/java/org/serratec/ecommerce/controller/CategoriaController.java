@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 
-// Dentro do endereço http://localhost:8080/api/categoria
+// Dentro do endereço http://localhost:8080/categoria
 // terei todos os métodos disponíveis (GET, POST,PUT, etc...)
 @RestController
 @RequestMapping("/categoria")
@@ -41,7 +42,6 @@ public class CategoriaController {
 			@ApiResponse(code = 404, message = "Recurso não disponível"),
 			@ApiResponse(code = 500, message = "Erro interno no servidor"),
 			@ApiResponse(code = 505, message = "Ocorreu uma exceção") })
-
 	@GetMapping
 	public ResponseEntity<Page<Categoria>> listar(@PageableDefault Pageable pageable) {
 		Page<Categoria> categorias = categoriaService.listarCategoria(pageable);
@@ -71,7 +71,7 @@ public class CategoriaController {
 			@ApiResponse(code = 500, message = "Erro interno no servidor"),
 			@ApiResponse(code = 505, message = "Ocorreu uma exceção") })
             
-	@PutMapping("{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Categoria> atualizar(@PathVariable Long id, @Valid @RequestBody Categoria categoria) {
 		if (categoriaService.atualizar(id, categoria) != null) {
 			return ResponseEntity.ok(categoriaService.atualizar(id, categoria));
@@ -85,6 +85,8 @@ public class CategoriaController {
 			@ApiResponse(code = 404, message = "Recurso não disponível"),
 			@ApiResponse(code = 500, message = "Erro interno no servidor"),
 			@ApiResponse(code = 505, message = "Ocorreu uma exceção") })
+	
+	@PreAuthorize("hasRole('ROLE_Cliente')")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Categoria inserir(@Valid @RequestBody Categoria categoria) {
